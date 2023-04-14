@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
-import 'package:google_translate/data/data.dart';
-import 'package:google_translate/data/language_model/data.dart';
+
+import '../domain/languages/language_model/data.dart';
+import '../infrastructure/language/language_repo.dart';
 
 class HomeController extends GetxController {
   Data? allLanguages;
