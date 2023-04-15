@@ -1,5 +1,8 @@
-import '../language/language_model/language_model.dart';
+import 'package:google_translate/domain/translation/translate_model/translate_moder.dart';
 
 abstract class TranslationRepo {
-  Future<LanguageModel?> getLanguages();
+  Future<TranslateModel?> getTranslate(
+    String message,
+    String translatorMessage,
+  );
 }

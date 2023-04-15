@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:google_translate/core/colors/colors.dart';
-import 'package:google_translate/data/data.dart';
 import 'package:google_translate/presentation/widgets/custom_buton.dart';
 import '../../controller/home_controller.dart';
 import '../../core/consts.dart';
+import '../../infrastructure/translation/translation_repo.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({
@@ -14,13 +13,10 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      // TranslaterDb().translate(value)
-    });
-
     final HomeController homeController = Get.put(HomeController());
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
+    final TextEditingController textEditingController = TextEditingController();
 
     return Scaffold(
       appBar: AppBar(
@@ -49,7 +45,11 @@ class HomeScreen extends StatelessWidget {
                       text: homeController.lang.toString(),
                     ),
                     IconButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          TranslationDb().getTranslate(
+                              homeController.lang.toString(),
+                              textEditingController.text);
+                        },
                         icon: const Icon(
                           Icons.sync_alt,
                           color: kWhite,
@@ -72,10 +72,8 @@ class HomeScreen extends StatelessWidget {
                       text: translateText(homeController),
                     ),
                     kHeight,
-                    textContainer(
-                      screenHeight,
-                      screenWidth,
-                    ),
+                    textContainer(screenHeight, screenWidth,
+                        controller: textEditingController),
                     kHeight20,
                     RichText(
                       text: translateText(homeController),
@@ -114,8 +112,10 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  Widget textContainer(double screenHeight, double screenWidth) {
+  Widget textContainer(double screenHeight, double screenWidth,
+      {TextEditingController? controller}) {
     return TextFormField(
+      controller: controller,
       style: const TextStyle(color: kWhite),
       maxLines: 7,
       decoration: InputDecoration(

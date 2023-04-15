@@ -13,7 +13,7 @@ class HomeController extends GetxController {
   }
 
   fetchLanguages() async {
-    final res = await TranslaterDb().getLanguages();
+    final res = await LanguageDb().getLanguages();
     if (res != null) {
       allLanguages = res.data;
     }

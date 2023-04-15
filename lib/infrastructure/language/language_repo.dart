@@ -3,10 +3,10 @@ import 'package:google_translate/domain/url.dart';
 import '../../domain/languages/i_language_repo.dart';
 import '../../domain/languages/language_model/language_model.dart';
 
-class TranslaterDb extends LanguageRepo {
+class LanguageDb extends LanguageRepo {
   final dio = Dio();
   final url = Url();
-  TranslaterDb() {
+  LanguageDb() {
     dio.options = BaseOptions(
       // baseUrl: url.baseUrl,
       // responseType: ResponseType.plain,
